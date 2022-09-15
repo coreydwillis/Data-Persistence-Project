@@ -52,4 +52,14 @@ public class SceneChanger : MonoBehaviour
             BestScore = data.BestScore;
         }
     }
+    static void Quit()
+    {
+        SceneChanger.Instance.SaveVars();
+    }
+
+    [RuntimeInitializeOnLoadMethod]
+    static void RunOnStart()
+    {
+        Application.quitting += Quit;
+    }
 }
