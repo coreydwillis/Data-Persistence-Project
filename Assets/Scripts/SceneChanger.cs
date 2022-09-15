@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using UnityEngine.UIElements;
 
 public class SceneChanger : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class SceneChanger : MonoBehaviour
     public static SceneChanger Instance;
     public int BestScore;
     public string PlayerName;
+    public string BestPlayerName;
 
     private void Awake()
     {
@@ -28,6 +30,7 @@ public class SceneChanger : MonoBehaviour
     {
         public int BestScore;
         public string PlayerName;
+        public string BestPlayerName;
     }
 
     public void SaveVars()
@@ -35,6 +38,7 @@ public class SceneChanger : MonoBehaviour
         SaveData data = new SaveData();
         data.BestScore = BestScore;
         data.PlayerName = PlayerName;
+        data.BestPlayerName = BestPlayerName;
 
         string json = JsonUtility.ToJson(data);
 
@@ -50,6 +54,8 @@ public class SceneChanger : MonoBehaviour
             SaveData data = JsonUtility.FromJson<SaveData>(json);
 
             BestScore = data.BestScore;
+            PlayerName = data.PlayerName;
+            BestPlayerName = data.BestPlayerName;
         }
     }
     static void Quit()

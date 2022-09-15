@@ -7,6 +7,8 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
+using UnityEngine.UIElements;
 
 // Sets the script to be executed later than all default scripts
 // This is helpful for UI, since other things may need to be initialized before setting the UI
@@ -14,9 +16,24 @@ using UnityEngine.UI;
 public class MenuUIHandler : MonoBehaviour
 {
     private string input;
-    public InputField EnterName;
+    public TMP_Text BestScoreText;
+    public TMP_InputField NameInput;
+
     private void Start()
     {
+        if (SceneChanger.Instance.BestScore > 1)
+        {
+            BestScoreText.text = "Best Score : " + SceneChanger.Instance.BestPlayerName + " : " + SceneChanger.Instance.BestScore;
+        }
+        else
+        {
+            BestScoreText.text = "No best score yet";
+        }
+
+        if (NameInput.text != "Enter name...")
+        {
+            NameInput.text = SceneChanger.Instance.PlayerName;
+        }
         //SetName();
         //ColorPicker.Init();
         //this will call the NewColorSelected function when the color picker have a color button clicked.
@@ -41,7 +58,6 @@ public class MenuUIHandler : MonoBehaviour
     public void SetName(string s)
     {
         input = s;
-        Debug.Log(input);
         SceneChanger.Instance.PlayerName = input;
     }
 }

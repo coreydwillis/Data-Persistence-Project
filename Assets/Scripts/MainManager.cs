@@ -23,7 +23,7 @@ public class MainManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        SetBestScore();
+        UpdateBestScore();
         const float step = 0.6f;
         int perLine = Mathf.FloorToInt(4.0f / step);
         
@@ -75,14 +75,23 @@ public class MainManager : MonoBehaviour
         if (m_Points > SceneChanger.Instance.BestScore)
         {
             SceneChanger.Instance.BestScore = m_Points;
+            SceneChanger.Instance.BestPlayerName = SceneChanger.Instance.PlayerName;
+            UpdateBestScore();
         }
-        SetBestScore();
+        
         m_GameOver = true;
         GameOverText.SetActive(true);
     }
 
-    public void SetBestScore()
+    public void UpdateBestScore()
     {
-        BestScoreText.text = "Best Score : " + SceneChanger.Instance.PlayerName + " : " + SceneChanger.Instance.BestScore;
+        if (SceneChanger.Instance.BestScore > 0)
+        {
+            BestScoreText.text = "Best Score : " + SceneChanger.Instance.BestPlayerName + " : " + SceneChanger.Instance.BestScore;
+        }
+        else
+        {
+            BestScoreText.text = "No best score yet";
+        }
     }
 }
